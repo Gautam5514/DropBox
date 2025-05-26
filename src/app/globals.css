@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --accent--tab: #0061fe;
+  --nav-easing-swoop: cubic-bezier(.5,0,0.05,1);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Lines Animation */
+.nav-container.animating-in .tile-line.nav-l {
+  transform: translate(0, -50%) scaleY(1);
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+}
+
+.nav-container.animating-in .tile-line.nav-r {
+  transform: translate(0, -50%) scaleY(1);
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+}
+
+.nav-container.animating-in .tile-line.nav-t {
+  transform: translate(-50%, 0) scaleX(1);
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+}
+
+.nav-container.animating-in .tile-line.nav-b {
+  transform: translate(-50%, 0) scaleX(1);
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+}
+
+/* Logo Animation */
+.home-logo path {
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  fill: currentColor;
+  fill-opacity: 0;
+  stroke-width: 1px;
+  stroke: var(--accent--tab);
+}
+
+.nav-container.animating-in .home-logo-container {
+  transition: width 1.5s var(--nav-easing-swoop) 1s,
+              height 1.5s var(--nav-easing-swoop) 1s,
+              left 1.25s cubic-bezier(.5,0,0.3,1) 1.25s,
+              bottom 1.25s cubic-bezier(.5,0,0.3,1) 1.25s;
+}
+
+.nav-container.final .home-logo-container {
+  width: 91px;
+  height: 91px;
+  left: 45px;
+  bottom: 44.5px;
+}
+
+@media (max-width: 991px) {
+  .nav-container.final .home-logo-container {
+    width: 66px;
+    height: 66px;
+    left: 32px;
+    bottom: 31.5px;
+  }
+}
+
+.nav-container.animating-in .home-logo path {
+  transition: fill-opacity 0.75s ease-in-out 1.25s,
+              stroke-opacity 0.5s ease-in-out 1.5s;
+}
+
+.nav-container.final .home-logo path {
+  fill-opacity: 1;
+  stroke-opacity: 0;
+}
+
+.nav-container.animating-in .nav-button-title-container {
+  transition: opacity 1.25s ease-in-out 1.25s;
+}
+
+.nav-container:not(.final) .nav-button-title-container {
+  opacity: 0;
+}
+
+@keyframes drawIn {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Logo Container Animation */
+.nav-container.animating-in .home-logo-container {
+  transition: width 1.5s cubic-bezier(0.5, 0, 0.05, 1) 1s,
+              height 1.5s cubic-bezier(0.5, 0, 0.05, 1) 1s,
+              left 1.25s cubic-bezier(0.5, 0, 0.3, 1) 1.25s,
+              bottom 1.25s cubic-bezier(0.5, 0, 0.3, 1) 1.25s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-container {
+    height: 120px;
+  }
+  
+  .home-logo-container {
+    width: 120px;
+    height: 120px;
+  }
+}
