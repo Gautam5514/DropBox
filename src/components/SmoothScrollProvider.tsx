@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, createContext, useContext, useState } from 'react';
+import React, { useEffect, createContext, useContext, useState, ReactNode } from 'react';
 import Lenis from '@studio-freight/lenis';
 
 type ScrollContextType = {
@@ -11,7 +11,7 @@ const ScrollContext = createContext<ScrollContextType>({ lenis: null, scrollY: 0
 
 export const useLenis = () => useContext(ScrollContext);
 
-export const SmoothScrollProvider = ({ children }: { children: React.ReactNode }) => {
+export const SmoothScrollProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [lenis, setLenis] = useState<Lenis | null>(null);
   const [scrollY, setScrollY] = useState(0);
 
@@ -24,14 +24,16 @@ export const SmoothScrollProvider = ({ children }: { children: React.ReactNode }
       infinite: false,
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smoothTouch: true,
+      // smoothTouch: true, // This option is deprecated or removed in newer Lenis versions
+      // Removed smoothTouch as it's no longer a valid Lenis option.
+      // Lenis typically handles touch smoothing automatically in newer versions.
     });
 
     lenisInstance.on('scroll', ({ scroll }: { scroll: number }) => {
       setScrollY(scroll);
     });
 
-    const raf = (time: number) => {
+    const raf = (time: DOMHighResTimeStamp) => { // Changed type to DOMHighResTimeStamp for accuracy
       lenisInstance.raf(time);
       requestAnimationFrame(raf);
     };
